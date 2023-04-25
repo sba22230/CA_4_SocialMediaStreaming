@@ -44,17 +44,17 @@ Your project must incorporate the following elements:
 
 The results of the analysis must be presented in the form of a project report. This report should discuss the storage and processing of big data using advanced data analytics techniques. The report should be 3000 ± 10% words in length (excluding references, titles and code) and must follow the Harvard styles format in addition to employing appropriate referencing methods and academic writing style. The report should include the following:
 
-1. Details of the data storage and processing activities carried out, including preparation of the data and processing the data in a MapReduce/ Spark environment;[0-20]
+1. Details of the data storage and processing activities carried out, including preparation of the data and processing the data in a MapReduce/ Spark environment;[0-20] - due 28'th April
 
-2. A discussion of the rationale and justification for the choices you have made in terms of data processing and storage, programming language choice, machine learning models and algorithms that you have implemented.[0-40]
+2. A discussion of the rationale and justification for the choices you have made in terms of data processing and storage, programming language choice, machine learning models and algorithms that you have implemented.[0-40] - due 12'th May
 
-3. Comparative analysis for at least two databases using any benchmarking tool. (For example, ycsb) [0-10]
+3. Comparative analysis for at least two databases using any benchmarking tool. (For example, ycsb) [0-10] - due 3'rd May
 
-4. Your analysis of  any change sentiment that occurs over the time period that you have selected.[0-10]
+4. Your analysis of  any change sentiment that occurs over the time period that you have selected.[0-10] - due 10'th May
 
-5. Your forecast of the sentiment at 1 week, 1 month and 3 months going forward[0-10]
+5. Your forecast of the sentiment at 1 week, 1 month and 3 months going forward[0-10] - due 5'th May
 
-6. Presentation of results by making appropriate use of figures along with caption, tables, etc and your dashboard for your forecast.[0-10]
+6. Presentation of results by making appropriate use of figures along with caption, tables, etc and your dashboard for your forecast.[0-10] - due 17'th May
 
 Note that MapReduce-style processing in this instance is considered to include platforms such as Apache Spark.
 
