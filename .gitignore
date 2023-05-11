@@ -7,3 +7,5 @@ SampleTweets/SampleTweets.zip
 SampleTweets/2021/01/01/00/29.json.bz2
 metastore_db/*
 .ipynb_checkpoints/*
+derby.log
+
