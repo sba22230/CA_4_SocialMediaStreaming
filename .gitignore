@@ -11,3 +11,4 @@ metastore_db/*
 derby.log
 
 rugby_twitter.parquet/_SUCCESS
+dashboard.parquet/_SUCCESS
