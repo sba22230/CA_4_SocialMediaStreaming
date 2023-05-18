@@ -10,3 +10,4 @@ metastore_db/*
 .ipynb_checkpoints/*
 derby.log
 
+rugby_twitter.parquet/_SUCCESS
