@@ -7,38 +7,49 @@ from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 from shiny.plotutils import brushed_points, near_points
 
 twtsent = pd.read_csv(Path(__file__).parent.parent / "Data/TweetInfo.csv")
+dfSent = pd.read_csv(Path(__file__).parent.parent / "Data/dfSentiment.csv")
 
 
 app_ui = ui.page_fluid(
-    ui.h2("Tweet Sentiment Analysis"),
-    ui.row(
-        ui.column(
-            3,
+    ui.panel_title("Tweet Sentiment Analysis"),
+    ui.layout_sidebar(
+        ui.panel_sidebar(
             ui.input_select(
                 "time_range",
                 "Select Time Range to forecast",
                 choices=["no forecast", "1 week", "1 month", "3 months"],
             ),
         ),
-        ui.column(
-            2,
-            ui.output_text_verbatim("tweetcount"),
-        ),
-        ui.column(
-            2,
-            ui.output_text_verbatim("tweetcountLkrt"),
-        ),
-    ),
-    ui.row(
-        ui.column(
-            6,
-            ui.output_plot("plot1", click=True, dblclick=True, hover=True, brush=True),
+        ui.panel_main(
+            ui.row(
+                ui.column(
+                    6,
+                    ui.output_text_verbatim("tweetcount"),
+                ),
+                ui.column(
+                    6,
+                    ui.output_text_verbatim("tweetcountLkrt"),
+                ),
+            ),
+            ui.row(
+                ui.column(
+                    6,
+                    ui.output_plot(
+                        "plot1", click=True, dblclick=True, hover=True, brush=True
+                    ),
+                ),
+                ui.column(
+                    6,
+                    ui.output_table("data_table"),
+                ),
+            ),
         ),
     ),
 )
 
 
 def server(input: Inputs, output: Outputs, session: Session):
+    filter_data = 
     @output
     @render.text()
     def tweetcount():
@@ -53,33 +64,20 @@ def server(input: Inputs, output: Outputs, session: Session):
         return langCounts
 
     @output
-    @render.plot(alt="A scatterplot")
+    @render.plot(alt="A lin chart")
     def plot1():
-        if input.plot_type() == "matplotlib":
-            fig, ax = plt.subplots()
-            plt.title("Good old twtsent")
-            ax.scatter(twtsent["wkofYr"], twtsent["txbSentiment"])
-            return fig
+        fig, ax = plt.subplots()
+        plt.title("Good old twtsent")
+        plt.plot(
+            dfSent["date"], dfSent["txbSentiment"], color="black", label="Sentiment"
+        )
+        # ax.scatter (twtsent["wkofYr"], twtsent["txbSentiment"])
+        return fig
 
-    # @output
-    # @render.text()
-    # def click_info():
-    #     return "click:\n" + json.dumps(input.plot1_click(), indent=2)
-
-    # @output
-    # @render.text()
-    # def dblclick_info():
-    #     return "dblclick:\n" + json.dumps(input.plot1_dblclick(), indent=2)
-
-    # @output
-    # @render.text()
-    # def hover_info():
-    #     return "hover:\n" + json.dumps(input.plot1_hover(), indent=2)
-
-    # @output
-    # @render.text()
-    # def brush_info():
-    #     return "brush:\n" + json.dumps(input.plot1_brush(), indent=2)
+    @output
+    @render.table()
+    def data_table():
+        return dfSent[["date", "txbSentiment"]]
 
 
 app = App(app_ui, server, debug=True)
