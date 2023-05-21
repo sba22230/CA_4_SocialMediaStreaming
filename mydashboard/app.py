@@ -8,6 +8,18 @@ from shiny.plotutils import brushed_points, near_points
 
 twtsent = pd.read_csv(Path(__file__).parent.parent / "Data/TweetInfo.csv")
 dfSent = pd.read_csv(Path(__file__).parent.parent / "Data/dfSentiment.csv")
+start_date = "2021-01-31"
+end_date = "2022-11-27"
+mask = (dfSent["date"] >= start_date) & (dfSent["date"] <= end_date)
+df_original = dfSent.loc[mask]
+
+end_date = "2022-12-11"
+mask = (dfSent["date"] >= start_date) & (dfSent["date"] <= end_date)
+df_1week = dfSent.loc[mask]
+
+end_date = "2022-12-28"
+mask = (dfSent["date"] >= start_date) & (dfSent["date"] <= end_date)
+df_1month = dfSent.loc[mask]
 
 
 app_ui = ui.page_fluid(
@@ -40,7 +52,7 @@ app_ui = ui.page_fluid(
                 ),
                 ui.column(
                     6,
-                    ui.output_table("data_table"),
+                    ui.output_ui("data_table"),
                 ),
             ),
         ),
@@ -49,7 +61,6 @@ app_ui = ui.page_fluid(
 
 
 def server(input: Inputs, output: Outputs, session: Session):
-    filter_data = 
     @output
     @render.text()
     def tweetcount():
@@ -67,7 +78,7 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.plot(alt="A lin chart")
     def plot1():
         fig, ax = plt.subplots()
-        plt.title("Good old twtsent")
+        plt.title("Sentiment of Tweets over Time")
         plt.plot(
             dfSent["date"], dfSent["txbSentiment"], color="black", label="Sentiment"
         )
@@ -78,6 +89,17 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.table()
     def data_table():
         return dfSent[["date", "txbSentiment"]]
+        # x = input.time_range
+        # if x == "no forecast":
+        #     return df_original[["date", "txbSentiment"]]
+        # elif x == "1 week":
+        #     return df_1week[["date", "txbSentiment"]]
+        # elif x == "1 month":
+        #     return df_1month[["date", "txbSentiment"]]
+        # elif x == "3 months":
+        #     return dfSent[["date", "txbSentiment"]]
+        # else:
+        #     return df_original[["date", "txbSentiment"]]
 
 
 app = App(app_ui, server, debug=True)
